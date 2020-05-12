@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
 """
-Pun
+pun
 ===
 
 Pun mini task to build, deploy or anything you like in your project.

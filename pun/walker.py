@@ -1,3 +1,10 @@
+"""
+pun.walker
+==========
+
+Walk on path.
+"""
+
 import os
 from contextlib import contextmanager
 from pathlib import Path

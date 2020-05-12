@@ -1,3 +1,10 @@
+"""
+pun.echo
+========
+
+Print something in console.
+"""
+
 from click import style
 
 

@@ -1,3 +1,11 @@
+"""
+pun.config
+==========
+
+Load Configuration.
+"""
+
+
 class Config(object):
     PARENT_LEN = 2
 

@@ -1,15 +1,22 @@
+"""
+pun.core
+========
+
+Main functionality of pun.
+"""
+
 from collections import namedtuple
 from functools import wraps
-from subprocess import call
-from typing import List
-
-from .echo import echo, fail, success
+from subprocess import run as call
 
 
 Task = namedtuple('Task', ['func', 'meta'])
 
 
 def task(*required, **kwargs):
+    """
+    Decorate function with it to make a task
+    """
 
     def deco(func):
 
@@ -17,10 +24,13 @@ def task(*required, **kwargs):
         def wraped():
             return func()
 
+        if func.__doc__ is None:
+            func.__doc__ = ''
+
         meta = {
             'required': required,
-            'name': func.__name__,
-            'desc': func.__doc__.strip(),
+            'name': kwargs.get('name', func.__name__),
+            'desc': kwargs.get('desc', func.__doc__.strip()),
         }
 
         return Task(wraped, meta)
@@ -29,38 +39,17 @@ def task(*required, **kwargs):
 
 
 def run(*args):
+    """
+    Run a command. ex: python setup.py install
+    """
+
+    if callable(args[0]):
+        return args[0](*args[1:])
+
     arg = ' '.join(args).split(' ')
-    call(arg)
+    process = call(arg)
 
+    if process.stdout is not None:
+        print(process.stdout)
 
-def execute_task(t, pf):
-    if isinstance(t, str):
-        t = getattr(pf, t)
-
-    try:
-        required = t.meta['required']
-
-        if required:
-            for req in required:
-                runner(req, pf)
-
-        t.func()
-
-    except Exception as e:
-        fail(e, t.meta['name'])
-    else:
-        success(t.meta['name'])
-
-
-def runner(task_list, pf=None):
-    if isinstance(task_list, list):
-        for t in task_list:
-            execute_task(t, pf)
-
-    else:
-        execute_task(task_list, pf)
-
-
-def helper(task_list):
-    for t in task_list:
-        echo(t.meta['name'], t.meta['desc'])
+    process.check_returncode()
