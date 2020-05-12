@@ -1,3 +1,5 @@
+import sys
+
 from .echo import echo, fail, success
 from .core import Task
 
@@ -26,7 +28,12 @@ class Punner(object):
                 helper(self.puntasks)
 
         else:
-            to_run = [self.get(task) for task in tasks]
+            to_run = []
+            for task in tasks:
+                t = self.get(task)
+                if t is not None:
+                    to_run.append(t)
+
             runner(to_run, self.punfile)
 
     def get(self, key):
@@ -35,6 +42,7 @@ class Punner(object):
                 return puntask
         else:
             print('No target', key)
+            sys.exit(2)
 
 
 def runner(task_list, pf=None):
@@ -68,6 +76,7 @@ def execute_task(t, pf):
 
     except Exception as e:
         fail(e, t.meta['name'])
+        sys.exit(1)
     else:
         success(t.meta['name'])
 

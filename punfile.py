@@ -20,7 +20,7 @@ def browser(path):
     webbrowser.open("file://" + pathname2url(os.path.abspath(path)))
 
 
-DEFAULT = 'clean'
+DEFAULT = 'default'
 
 
 @pun.task('clean_build', 'clean_pyc', 'clean_test')
@@ -168,6 +168,7 @@ def touch_cd():
     """
     Create file in current directory.
     """
+
     with pun.cd('./tests'):
         pun.run('touch file')
 
@@ -177,5 +178,24 @@ def remove_cd():
     """
     Remove file in current directory.
     """
+
     with pun.cd('./tests'):
         pun.run('rm file')
+
+
+@pun.task()
+def fail():
+    """
+    Test failed stat.
+    """
+
+    1 / 0
+
+
+@pun.task()
+def default():
+    """
+    This should executed when no arg.
+    """
+
+    pun.run('echo default')

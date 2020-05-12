@@ -11,3 +11,6 @@ __version__ = '0.1.0'
 
 from .walker import cd
 from .core import task, run
+
+
+__all__ = ('cd', 'task', 'run')
