@@ -68,3 +68,11 @@ def test_fixture(runner):
     assert '3' in result2.output
     assert '6' in result3.output
     assert '10' in result4.output
+
+
+def test_no_fixture(runner):
+    result = runner.invoke(cli.main, 'no_fixture')
+
+    assert result.exit_code == 2
+
+    assert 'No fixture undefined' in result.output

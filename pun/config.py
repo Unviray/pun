@@ -5,9 +5,10 @@ pun.config
 Load Configuration.
 """
 
+from pathlib import Path
+
 
 class Config(object):
     PARENT_LEN = 2
-
-    def __init__(self):
-        pass
+    HOME = Path().home() / '.pun'
+    DEFAULT_PF = HOME / 'default_punfile.py'

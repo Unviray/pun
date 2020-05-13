@@ -39,6 +39,6 @@ def find_punfile():
     for n in range(Config().PARENT_LEN):
         with cd('../' * n):
             if Path('punfile.py') in here().iterdir():
-                return Path('punfile')
+                return Path('punfile.py')
 
     print('Unable to find punfile')

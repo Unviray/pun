@@ -288,3 +288,21 @@ def need_fixture4(one, two, three, four):
     """
 
     pun.run(print, one() + two() + three() + four())
+
+
+@pun.task()
+def no_fixture(undefined):
+    """
+    Fail because no fixture named 'undefined'.
+    """
+
+    pun.run(print, undefined())
+
+
+@pun.task()
+def punned_fixture(punned):
+    """
+    Fail because no fixture named 'undefined'.
+    """
+
+    pun.run(print, punned)

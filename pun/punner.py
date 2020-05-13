@@ -12,25 +12,30 @@ class Punner(object):
         self.fixtures = []
         self.default = getattr(self.punfile, 'DEFAULT', None)
 
-    def init_tasks(self):
-        for item in dir(self.punfile):
+    def init_tasks(self, punfile):
+        for item in dir(punfile):
 
-            it = getattr(self.punfile, item)
-            if isinstance(it, Task):
+            it = getattr(punfile, item)
+            if isinstance(it, Task) and (it not in self.puntasks):
                 self.puntasks.append(it)
 
-    def init_fixtures(self):
-        for item in dir(self.punfile):
+    def init_fixtures(self, punfile):
+        for item in dir(punfile):
 
-            it = getattr(self.punfile, item)
-            if isinstance(it, Fixt):
+            it = getattr(punfile, item)
+            if isinstance(it, Fixt) and (it not in self.fixtures):
                 self.fixtures.append(it)
 
-    def setup(self):
-        self.init_tasks()
-        self.init_fixtures()
+    def setup(self, punfile=None):
+        self.init_tasks(punfile or self.punfile)
+        self.init_fixtures(punfile or self.punfile)
 
-    def run(self, tasks):
+    def run(self, tasks=[]):
+        """
+        Default way to run a subset of task.
+        :param tasks: List[str]
+        """
+
         if not tasks:
             if self.default is not None:
                 self.runner(self.default)
@@ -58,9 +63,12 @@ class Punner(object):
         for fixture in self.fixtures:
             if fixture.meta['name'] == key:
                 return fixture
-        else:
-            print('No fixture', key)
-            sys.exit(2)
+
+        if key == 'punned':
+            return Fixt(self, {'name': 'punned', 'desc': 'Current punfile'})
+
+        print('No fixture', key)
+        sys.exit(2)
 
     def runner(self, task_list):
         """
