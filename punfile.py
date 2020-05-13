@@ -162,7 +162,7 @@ def install_dev():
 
 
 # For testing
-@pun.task()
+@pun.task(hide=True)
 def touch():
     """
     Create file in current directory.
@@ -171,7 +171,7 @@ def touch():
     pun.run('touch file')
 
 
-@pun.task()
+@pun.task(hide=True)
 def remove():
     """
     Remove file in current directory.
@@ -180,7 +180,7 @@ def remove():
     pun.run('rm file')
 
 
-@pun.task()
+@pun.task(hide=True)
 def touch_cd():
     """
     Create file in current directory.
@@ -190,7 +190,7 @@ def touch_cd():
         pun.run('touch file')
 
 
-@pun.task()
+@pun.task(hide=True)
 def remove_cd():
     """
     Remove file in current directory.
@@ -200,7 +200,7 @@ def remove_cd():
         pun.run('rm file')
 
 
-@pun.task()
+@pun.task(hide=True)
 def fail():
     """
     Test failed stat.
@@ -209,7 +209,7 @@ def fail():
     1 / 0
 
 
-@pun.task()
+@pun.task(hide=True)
 def default():
     """
     This should executed when no arg.
@@ -254,7 +254,7 @@ def four():
     return 4
 
 
-@pun.task()
+@pun.task(hide=True)
 def need_fixture1(one):
     """
     This task need one fixture.
@@ -263,7 +263,7 @@ def need_fixture1(one):
     pun.run(print, one())
 
 
-@pun.task()
+@pun.task(hide=True)
 def need_fixture2(one, two):
     """
     This task need two fixture.
@@ -272,7 +272,7 @@ def need_fixture2(one, two):
     pun.run(print, one() + two())
 
 
-@pun.task()
+@pun.task(hide=True)
 def need_fixture3(one, two, three):
     """
     This task need three fixture.
@@ -281,7 +281,7 @@ def need_fixture3(one, two, three):
     pun.run(print, one() + two() + three())
 
 
-@pun.task()
+@pun.task(hide=True)
 def need_fixture4(one, two, three, four):
     """
     This task need three fixture.
@@ -290,7 +290,7 @@ def need_fixture4(one, two, three, four):
     pun.run(print, one() + two() + three() + four())
 
 
-@pun.task()
+@pun.task(hide=True)
 def no_fixture(undefined):
     """
     Fail because no fixture named 'undefined'.
@@ -299,7 +299,7 @@ def no_fixture(undefined):
     pun.run(print, undefined())
 
 
-@pun.task()
+@pun.task(hide=True)
 def punned_fixture(punned):
     """
     Fail because no fixture named 'undefined'.

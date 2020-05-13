@@ -22,8 +22,8 @@ def task(*required, **kwargs):
     def deco(func):
 
         @wraps(func)
-        def wraped(*args, **kwargs):
-            return func(*args, **kwargs)
+        def wraped(*a, **k):
+            return func(*a, **k)
 
         if func.__doc__ is None:
             func.__doc__ = ''
@@ -32,6 +32,7 @@ def task(*required, **kwargs):
             'required': required,
             'name': kwargs.get('name', func.__name__),
             'desc': kwargs.get('desc', func.__doc__.strip()),
+            'hide': kwargs.get('hide', False)
         }
 
         return Task(wraped, meta)

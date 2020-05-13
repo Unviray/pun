@@ -128,4 +128,5 @@ class Punner(object):
         print(self.punfile.__doc__)
 
         for t in self.puntasks:
-            echo(t.meta['name'], t.meta['desc'])
+            if not t.meta['hide']:
+                echo(t.meta['name'], t.meta['desc'])
