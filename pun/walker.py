@@ -41,5 +41,3 @@ def find_punfile():
             if Path('punfile.py') in here().iterdir():
                 found = here() / 'punfile.py'
                 return found.resolve()
-
-    print('Unable to find punfile')

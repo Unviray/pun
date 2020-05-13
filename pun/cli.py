@@ -72,7 +72,7 @@ def first_manager():
     if home.exists() and home.is_dir():
         return True
 
-    from .first import template
+    from .first import default_punfile
 
     home.mkdir()
 
@@ -80,5 +80,5 @@ def first_manager():
     punfile.touch()
 
     with punfile.open('wb') as fp:
-        with open(template.__file__, 'rb') as tfp:
+        with open(default_punfile.__file__, 'rb') as tfp:
             fp.write(tfp.read())

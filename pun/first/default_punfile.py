@@ -13,6 +13,25 @@ Pun mini task to build, deploy or anything you like in your project.
 import pun
 
 
+init_template = """
+import pun
+
+
+DEFAULT = 'default'
+
+
+@pun.task()
+def default():
+    \"\"\"
+    Run default action.
+    \"\"\"
+
+    text = "This is a sample punfile (you can edit)"
+
+    pun.run('echo', text)
+"""
+
+
 @pun.task()
 def help(punned):
     """
@@ -35,3 +54,5 @@ def init():
     """
 
     pun.run('touch punfile.py')
+    with open('punfile.py', 'w') as fp:
+        fp.write(init_template)

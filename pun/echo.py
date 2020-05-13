@@ -32,4 +32,4 @@ def echo(task_name, msg, indent=25):
     name = style(task_name, bold=True)
     n = name.ljust(indent)
 
-    print(f'{n} {msg}')
+    print(f'> {n} {msg}')

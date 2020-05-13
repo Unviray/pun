@@ -40,7 +40,7 @@ class Punner(object):
             if self.default is not None:
                 self.runner(self.default)
             else:
-                helper(self.puntasks)
+                self.helper()
 
         else:
             to_run = []
@@ -120,11 +120,12 @@ class Punner(object):
 
         return [self.get_fixture(_).func for _ in fixtures]
 
+    def helper(self):
+        """
+        Show help of each task
+        """
 
-def helper(task_list):
-    """
-    Show help of each task
-    """
+        print(self.punfile.__doc__)
 
-    for t in task_list:
-        echo(t.meta['name'], t.meta['desc'])
+        for t in self.puntasks:
+            echo(t.meta['name'], t.meta['desc'])
