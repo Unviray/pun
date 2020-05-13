@@ -76,3 +76,12 @@ def test_no_fixture(runner):
     assert result.exit_code == 2
 
     assert 'No fixture undefined' in result.output
+
+
+def test_help(runner):
+    result = runner.invoke(cli.main, 'help')
+
+    assert result.exit_code == 0
+
+    assert 'clean' in result.output
+    assert 'fail' not in result.output
