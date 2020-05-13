@@ -106,6 +106,23 @@ def coverage():
     pun.run(browser, "htmlcov/index.html")
 
 
+@pun.task()
+def docs():
+    """
+    Generate Sphinx HTML documentation, including API docs.
+    """
+
+    pun.run("rm -f docs/pun.rst")
+    pun.run("rm -f docs/modules.rst")
+    pun.run("sphinx-apidoc -o docs/ pun")
+
+    with pun.cd('./docs'):
+        pun.run("make clean")
+        pun.run("make html")
+
+    pun.run(browser, "docs/_build/html/index.html")
+
+
 @pun.task('dist')
 def release():
     """
@@ -199,3 +216,75 @@ def default():
     """
 
     pun.run('echo default')
+
+
+@pun.fixture
+def one():
+    """
+    Return int 1.
+    """
+
+    return 1
+
+
+@pun.fixture
+def two():
+    """
+    Return int 2.
+    """
+
+    return 2
+
+
+@pun.fixture
+def three():
+    """
+    Return int 3.
+    """
+
+    return 3
+
+
+@pun.fixture
+def four():
+    """
+    Return int 4.
+    """
+
+    return 4
+
+
+@pun.task()
+def need_fixture1(one):
+    """
+    This task need one fixture.
+    """
+
+    pun.run(print, one())
+
+
+@pun.task()
+def need_fixture2(one, two):
+    """
+    This task need two fixture.
+    """
+
+    pun.run(print, one() + two())
+
+
+@pun.task()
+def need_fixture3(one, two, three):
+    """
+    This task need three fixture.
+    """
+
+    pun.run(print, one() + two() + three())
+
+
+@pun.task()
+def need_fixture4(one, two, three, four):
+    """
+    This task need three fixture.
+    """
+
+    pun.run(print, one() + two() + three() + four())

@@ -51,3 +51,20 @@ def test_default(runner):
 
     assert result.exit_code == 0
     assert 'default' in result.output
+
+
+def test_fixture(runner):
+    result1 = runner.invoke(cli.main, 'need_fixture1')
+    result2 = runner.invoke(cli.main, 'need_fixture2')
+    result3 = runner.invoke(cli.main, 'need_fixture3')
+    result4 = runner.invoke(cli.main, 'need_fixture4')
+
+    assert result1.exit_code == 0
+    assert result2.exit_code == 0
+    assert result3.exit_code == 0
+    assert result4.exit_code == 0
+
+    assert '1' in result1.output
+    assert '3' in result2.output
+    assert '6' in result3.output
+    assert '10' in result4.output

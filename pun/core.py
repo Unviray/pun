@@ -11,6 +11,7 @@ from subprocess import run as call
 
 
 Task = namedtuple('Task', ['func', 'meta'])
+Fixt = namedtuple('Fixt', ['func', 'meta'])
 
 
 def task(*required, **kwargs):
@@ -21,8 +22,8 @@ def task(*required, **kwargs):
     def deco(func):
 
         @wraps(func)
-        def wraped():
-            return func()
+        def wraped(*args, **kwargs):
+            return func(*args, **kwargs)
 
         if func.__doc__ is None:
             func.__doc__ = ''
@@ -38,6 +39,23 @@ def task(*required, **kwargs):
     return deco
 
 
+def fixture(func):
+
+    @wraps(func)
+    def wraped(*args, **kwargs):
+        return func(*args, **kwargs)
+
+    if func.__doc__ is None:
+        func.__doc__ = ''
+
+    meta = {
+        'name': func.__name__,
+        'desc': func.__doc__.strip(),
+    }
+
+    return Fixt(wraped, meta)
+
+
 def run(*args):
     """
     Run a command. ex: python setup.py install
@@ -46,6 +64,7 @@ def run(*args):
     if callable(args[0]):
         return args[0](*args[1:])
 
+    args = [str(_) for _ in args]
     arg = ' '.join(args).split(' ')
     process = call(arg)
 

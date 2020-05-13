@@ -1,5 +1,9 @@
-Welcome to Pun's documentation!
-======================================
+Pun
+===
+
+Pun mini task
+
+
 
 .. toctree::
    :maxdepth: 2

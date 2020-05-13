@@ -2,7 +2,6 @@
 Pun
 ===
 
-
 .. image:: https://img.shields.io/pypi/v/pun.svg
         :target: https://pypi.python.org/pypi/pun
 
@@ -14,8 +13,6 @@ Pun
         :alt: Documentation Status
 
 
-
-
 Pun mini task to build, deploy or anything you like in your project
 
 
@@ -23,10 +20,14 @@ Pun mini task to build, deploy or anything you like in your project
 * Documentation: https://pun.readthedocs.io.
 
 
+** In development **
+
+
 Features
 --------
 
 * TODO
+
 
 Credits
 -------
