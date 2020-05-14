@@ -10,7 +10,7 @@ __email__ = 'unviray@gmail.com'
 __version__ = '0.1.0'
 
 from .walker import cd
-from .core import task, run, fixture
+from .core import task, run, fixture, env
 
 
-__all__ = ('cd', 'task', 'run', 'fixture')
+__all__ = ('cd', 'env', 'task', 'run', 'fixture')

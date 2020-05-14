@@ -85,3 +85,10 @@ def test_help(runner):
 
     assert 'clean' in result.output
     assert 'fail' not in result.output
+
+
+def test_env(runner):
+    result = runner.invoke(cli.main, 'environ')
+
+    assert result.exit_code == 0
+    assert '34' in result.output

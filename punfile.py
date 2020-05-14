@@ -306,3 +306,13 @@ def punned_fixture(punned):
     """
 
     pun.run(print, punned)
+
+
+@pun.task(hide=True)
+def environ():
+    """
+    Print env.
+    """
+
+    with pun.env('pun_env', 34):
+        pun.run(print, os.environ['pun_env'])

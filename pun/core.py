@@ -5,6 +5,8 @@ pun.core
 Main functionality of pun.
 """
 
+import os
+from contextlib import contextmanager
 from collections import namedtuple
 from functools import wraps
 from subprocess import run as call
@@ -73,3 +75,14 @@ def run(*args):
         print(process.stdout)
 
     process.check_returncode()
+
+
+@contextmanager
+def env(key, value):
+    try:
+        os.environ[key] = str(value)
+        yield
+    except Exception:
+        pass
+    finally:
+        os.environ.pop(key)

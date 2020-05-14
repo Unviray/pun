@@ -99,8 +99,11 @@ class Punner(object):
             try:
                 t.func()
             except TypeError as e:
-                fixtures = self.get_required_fixtures(e)
-                t.func(*fixtures)
+                if 'missing' in str(e):
+                    fixtures = self.get_required_fixtures(e)
+                    t.func(*fixtures)
+                else:
+                    raise Exception(e)
 
         except Exception as e:
             fail(e, t.meta['name'])
