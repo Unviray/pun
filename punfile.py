@@ -316,3 +316,12 @@ def environ():
 
     with pun.env('pun_env', 34):
         pun.run(print, os.environ['pun_env'])
+
+
+@pun.task(as_option=True)
+def option():
+    """
+    Called with --option
+    """
+
+    pun.run(print, 'optioned')

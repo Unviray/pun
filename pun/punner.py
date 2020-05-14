@@ -17,6 +17,8 @@ class Punner(object):
 
             it = getattr(punfile, item)
             if isinstance(it, Task) and (it not in self.puntasks):
+                if it.meta['name'].startswith('_') and it.meta['hide'] is None:
+                    it.meta['hide'] = True
                 self.puntasks.append(it)
 
     def init_fixtures(self, punfile):
@@ -51,9 +53,15 @@ class Punner(object):
 
             self.runner(to_run)
 
-    def get_task(self, key):
-        for puntask in self.puntasks:
-            if puntask.meta['name'] == key:
+    def get_task(self, key: str):
+        if key.startswith('--'):
+            pts = filter(lambda p: p.meta['as_option'], self.puntasks)
+            key = key.replace('--', '')
+        else:
+            pts = self.puntasks
+
+        for puntask in pts:
+            if puntask.meta['name'] == key.replace('-', '_'):
                 return puntask
         else:
             print('No target', key)
@@ -88,7 +96,7 @@ class Punner(object):
         """
 
         if isinstance(t, str):
-            t = getattr(self.punfile, t)
+            t = self.get_task(t)
 
         try:
             required = t.meta['required']

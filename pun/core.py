@@ -12,7 +12,21 @@ from functools import wraps
 from subprocess import run as call
 
 
-Task = namedtuple('Task', ['func', 'meta'])
+class Task(object):
+    def __init__(self, func, meta):
+        self.func = func
+        self.meta = meta
+
+    def clone(self, new_name):
+        meta = self.meta.copy()
+        meta['name'] = new_name
+
+        return Task(self.func, meta)
+
+    def __repr__(self):
+        return f"<Task: {self.meta['name']}>"
+
+
 Fixt = namedtuple('Fixt', ['func', 'meta'])
 
 
@@ -34,8 +48,13 @@ def task(*required, **kwargs):
             'required': required,
             'name': kwargs.get('name', func.__name__),
             'desc': kwargs.get('desc', func.__doc__.strip()),
-            'hide': kwargs.get('hide', False)
+            'as_option': kwargs.get('as_option', False),
         }
+
+        meta['hide'] = kwargs.get('hide', True if meta['as_option'] else None)
+
+        if meta['hide'] is None and meta['name'].startswith('_'):
+            meta['hide'] = True
 
         return Task(wraped, meta)
 

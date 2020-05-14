@@ -32,7 +32,7 @@ def default():
 """
 
 
-@pun.task()
+@pun.task(as_option=True)
 def help(punned):
     """
     Show list of task and their description.
@@ -45,6 +45,18 @@ def help(punned):
     pun.run(punned.run)
 
     punned.default = default
+
+
+@pun.task(as_option=True)
+def version():
+    """
+    Show pun version.
+    """
+
+    pun.run(print, f'pun version {pun.__version__}')
+
+
+v = version.clone('v')
 
 
 @pun.task()

@@ -13,7 +13,13 @@ from .config import Config
 from .utils import import_file
 
 
-@click.command()
+CONTEXT_SETTINGS = {
+    'help_option_names': [],
+    'ignore_unknown_options': True,
+}
+
+
+@click.command(context_settings=CONTEXT_SETTINGS)
 @click.argument('tasks', nargs=-1)
 def main(tasks):
     first_manager()

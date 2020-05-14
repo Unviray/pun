@@ -92,3 +92,10 @@ def test_env(runner):
 
     assert result.exit_code == 0
     assert '34' in result.output
+
+
+def test_as_option(runner):
+    result = runner.invoke(cli.main, '--option')
+
+    assert result.exit_code == 0
+    assert 'optioned' in result.output
