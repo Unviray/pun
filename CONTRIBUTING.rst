@@ -7,6 +7,9 @@ Contributing
 Contributions are welcome, and they are greatly appreciated! Every little bit
 helps, and credit will always be given.
 
+I'm not an expert, so if you find something wrong or something to improve in my
+project: "Please HELP ME".
+
 You can contribute in many ways:
 
 Types of Contributions

@@ -5,15 +5,12 @@ pun.cli
 Entry of console.
 """
 
-import sys
-from importlib import import_module
-from contextlib import contextmanager
-
 import click
 
 from .walker import find_punfile
 from .punner import Punner
 from .config import Config
+from .utils import import_file
 
 
 @click.command()
@@ -24,10 +21,10 @@ def main(tasks):
     punfile_path = find_punfile()
 
     if punfile_path is not None:
-        with import_punfile(punfile_path) as p:
+        with import_file(punfile_path) as p:
             punfile = p
 
-        with import_punfile(Config().DEFAULT_PF) as p:
+        with import_file(Config().DEFAULT_PF) as p:
             default_pf = p
 
         punner = Punner(punfile)
@@ -39,27 +36,13 @@ def main(tasks):
         punner.run(tasks)
 
     else:
-        with import_punfile(Config().DEFAULT_PF) as p:
+        with import_file(Config().DEFAULT_PF) as p:
             default_pf = p
 
         default_punner = Punner(default_pf)
 
         default_punner.setup()
         default_punner.run(tasks)
-
-
-@contextmanager
-def import_punfile(pun_path):
-    path_bak = sys.path[:]
-    sys.path = [str(pun_path.parent.resolve())] + path_bak
-
-    try:
-        pf = import_module(pun_path.name.split('.')[0])
-        yield pf
-    except ImportError:
-        pass
-    finally:
-        sys.path = path_bak[:]
 
 
 def first_manager():
@@ -72,13 +55,20 @@ def first_manager():
     if home.exists() and home.is_dir():
         return True
 
-    from .first import default_punfile
+    from .first import default_punfile, config
 
     home.mkdir()
 
-    punfile = home / 'default_punfile.py'
+    punfile = Config().DEFAULT_PF
+    conffile = Config().DEFAULT_CONFIG
+
     punfile.touch()
+    conffile.touch()
 
     with punfile.open('wb') as fp:
         with open(default_punfile.__file__, 'rb') as tfp:
+            fp.write(tfp.read())
+
+    with conffile.open('wb') as fp:
+        with open(config.__file__, 'rb') as tfp:
             fp.write(tfp.read())
