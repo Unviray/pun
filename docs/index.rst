@@ -11,7 +11,7 @@ Pun mini task
 
    readme
    installation
-   usage
+   advanced_usage
    modules
    contributing
    authors

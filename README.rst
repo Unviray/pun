@@ -79,6 +79,10 @@ We can omit task name (default) because we set ``DEFAULT = 'default'``.
 ``DEFAULT`` is a variable to handle a default task name to run if we don't
 provide a task name in console.
 
+As you can see ``pun.run()`` function run passed arguments in a shell, the
+first argument can be a callable and all arguments after it are passed to that
+callable.
+
 
 Credits
 -------

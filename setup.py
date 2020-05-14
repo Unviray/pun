@@ -39,7 +39,7 @@ setup(
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='pun',
+    keywords='pun task tasks task-runner make Makefile',
     name='pun',
     packages=find_packages(include=['pun', 'pun.*']),
     test_suite='tests',

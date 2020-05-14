@@ -51,6 +51,14 @@ pun.punner module
     :undoc-members:
     :show-inheritance:
 
+pun.utils module
+----------------
+
+.. automodule:: pun.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 pun.walker module
 -----------------
 
